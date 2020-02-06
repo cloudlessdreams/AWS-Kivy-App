@@ -1,0 +1,123 @@
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#: import TextInput kivy.uix.textinput.TextInput
+#: import BoxLayout kivy.uix.boxlayout.BoxLayout
+#: import Button kivy.uix.button.Button
+#: import CheckBox kivy.uix.checkbox
+#: import C kivy.utils.get_color_from_hex
+#: import Image kivy.uix.image
+#: import TextInput kivy.uix.textinput
+
+#:include tickscreen.kv
+#:include signaturescreen.kv
+#:include carreg.kv
+#:include additional.kv
+#:include final.kv
+
+ScreenManagement:
+    transition: FadeTransition()
+    SigninScreen:
+    Carreg:
+    Tickscreen:
+    Additional:
+    Sigscreen:
+    Final:
+
+<Textbox@TextInput>:
+    size_hint: .70, .075
+    foreground_color: (1,0,1,1)
+    background_color: (0,0,0,0)
+    multiline: False
+    canvas.before:
+        Color:
+            rgba: C('#FFFFFF')
+    canvas.after:
+        Color:
+            rgba: (0,154,154, .4)
+        Color:
+            rgba: (0,154,154, .4)
+        Line:
+            points: self.pos[0], self.pos[1] + self.size[1], self.pos[0] + self.size[0], self.pos[1] + self.size[1]
+<Filledbutton@Button>:
+    size_hint: .3, .1
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (1,0,1,1)
+    bold: True
+    border_radius: [18]
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: self.border_radius
+<Emptybutton@Button>:
+    size_hint: .3, .1
+    background_color: (0,0,0,0)
+    background_normal: ''
+    back_color: (1,0,1,1)
+    bold: True
+    canvas.before:
+        Color:
+            rgba: 0,154,154,.4
+        Line:
+            rounded_rectangle: (self.pos[0],self.pos[1],self.size[0],self.size[1],2,30,2,30)
+            width: 1.2
+
+<SigninScreen>:
+    on_isAuthenticated: if root.isAuthenticated: app.root.current = 'carreg'
+    canvas.before:
+        Color:
+            rgba: C('#30425A')
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'top'
+        Image:
+            source:'angliacheckapp.png'
+            size_hint: .8,.4
+        Label:
+            id: info
+            text: ''
+            markup: True
+            size_hint_y: None
+            pos_hint:{"x":.015,"y":.8}
+    FloatLayout:
+        Textbox:
+            id: username
+            input_type: 'number'
+            pos_hint: {'center_y': 0.58, 'center_x': 0.5}
+            hint_text:'Driver ID'
+            on_text_validate: pin.focus = True
+        Textbox:
+            id: pin
+            input_filter: 'int'
+            hint_text:'Pin Code'
+            pos_hint: {'center_y': 0.5, 'center_x': 0.5}
+            password: True
+            canvas.after:
+                Line:
+                    points: self.pos[0] , self.pos[1], self.pos[0] + self.size[0], self.pos[1]
+        BoxLayout:
+            padding: 80
+            spacing: 10
+            Filledbutton:
+                text:'Sign In'
+                pos_hint:{"x":.1,"y":.1}
+                back_color: (0,154,154, .4)
+                border_radius: [30,2,30,2]
+                on_press: root.sendglobal(username)
+                on_release: root.validate_user(username.text, pin.text)
+               ### skip auth flow for devs on_release: send to carreg
+               ### on_release: app.root.current = 'carreg'
+            Emptybutton:
+                text:'Register'
+                pos_hint:{"x":.55,"y":.1}
+                back_color: (0,154,154, .4)
+        Label:
+            id: forgot
+            text: 'Forgot Password?'
+            pos_hint: {'center_y': 0.05, 'center_x': 0.5}
+            color: C("#FFFFF")

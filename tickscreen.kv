@@ -1,0 +1,91 @@
+
+<CheckboxLabel@Label>:
+#    text_size: root.width, None
+#    size: self.texture_size
+    font_size: 0.22*self.width
+
+<Tickscreen>:
+    name: 'tickscreen'
+    canvas.before:
+        Color:
+            rgba: C('#30425A')
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            bold: True
+            size_hint: 1,.2
+            text: 'Vehicle Check'
+        GridLayout:
+            cols: 3
+            GridLayout:
+                cols: 2
+                CheckBox:
+                    id: Tyres
+                CheckboxLabel:
+                    text: 'Tyres'
+                CheckBox:
+                    id: Lights
+                CheckboxLabel:
+                    text: 'Lights '
+                CheckBox:
+                    id: Mirrors
+                CheckboxLabel:
+                    text: 'Mirrors'
+                CheckBox:
+                    id: Horn
+                CheckboxLabel:
+                    text: 'Horn'
+                CheckBox:
+                    id: Seatbelts
+                CheckboxLabel:
+                    text: 'Seat belts'
+            FloatLayout:
+
+                Widget:
+                    pos_hint:{"x":.5,"y":.0}
+                    size_hint_x: None
+                    width: dp(2)
+                    canvas:
+                        Color:
+                            rgb: 255,255,255
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+            GridLayout:
+                cols: 2
+                CheckboxLabel:
+                    text: 'Badge / Plate?'
+                CheckBox:
+                    id: Plate
+                CheckboxLabel:
+                    text: 'Roof sign / Stickers?'
+                CheckBox:
+                    id: Roofsign
+                CheckboxLabel:
+                    text: 'Fire / Aid kit?'
+                CheckBox:
+                    id: FireExtinguisher
+                CheckboxLabel:
+                    text: 'Mechanics'
+                CheckBox:
+                    id: Mechanics
+                CheckboxLabel:
+                    text: 'Condition?'
+                CheckBox:
+                    id: GeneralCondition
+        BoxLayout:
+            size_hint: 1, .2
+            padding: 20, 20, 20, 20
+            Button:
+                text: "Next"
+                bold: True
+                background_color: (0,154,154, .4)
+                background_normal: ''
+                on_press: root.checkbox_confirm(self)
+                on_release: app.root.current = 'addnotes'
+
+

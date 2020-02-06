@@ -1,0 +1,40 @@
+<Sigscreen>:
+    name: 'sigscreen'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [50, 20, 50, 20]
+        canvas.before:
+            Color:
+                rgba: C('#30425A')
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        BoxLayout:
+            size_hint: 1,.5
+            Label:
+                text_size: root.width, None
+                size: self.texture_size
+                bold: True
+                valign:  'middle'
+                halign: 'center'
+                text:"Please sign in the box to complete \n any incorrect information provided will result in gross misconduct"
+                color: C('#FFFFFF')
+        Signer
+            canvas:
+                Color:
+                    rgba: (.8,.8,.8, 1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            id: wgt
+        BoxLayout:
+            size_hint: 1,.33
+            Button:
+                text: "Complete"
+                bold: True
+    #            size_hint_y: None
+                background_color: (0,154,154, .4)
+                background_normal: ''
+                #on_press: wgt.export_to_png("b.png")
+                on_release: root.savevar()
+                on_release: app.root.current = 'final'

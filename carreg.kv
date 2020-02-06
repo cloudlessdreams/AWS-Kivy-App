@@ -1,0 +1,46 @@
+<Carreg>
+    name: 'carreg'
+    id: carregclass
+    canvas.before:
+        Color:
+            rgba: C('#30425A')
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            bold: True
+            font_size: 0.05*root.height
+            text: 'Vehicle Details'
+        FloatLayout:
+            TextInput:
+                id: reg
+                size_hint: .9, .2
+                multiline: False
+                pos_hint: {'center_y': 0.85, 'center_x': 0.5}
+                hint_text:'Car Registration'
+                on_text_validate: plate.focus = True
+            TextInput:
+                id: plate
+                size_hint: .9, .2
+                multiline: False
+                pos_hint: {'center_y': 0.50, 'center_x': 0.5}
+                hint_text:'Plate Number'
+                on_text_validate: miles.focus = True
+            TextInput:
+                id: miles
+                size_hint: .9, .2
+                multiline: False
+                pos_hint: {'center_y': 0.15, 'center_x': 0.5}
+                hint_text:'Mileage (optional)'
+        BoxLayout:
+            size_hint: 1, .33
+            padding: 20, 20, 20, 20
+            Button:
+                text: "Next"
+                bold: True
+                background_color: (0,154,154, .4)
+                background_normal: ''
+                on_press: root.sendglobal2(reg, plate, miles)
+                on_release: app.root.current = 'tickscreen'

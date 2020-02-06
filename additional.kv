@@ -1,0 +1,29 @@
+<Additional>:
+    name: 'addnotes'
+    canvas.before:
+        Color:
+            rgba: C('#30425A')
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            bold: True
+            size_hint: 1, .5
+            text: 'Additional Details'
+        TextInput:
+            id: notes
+            size_hint: .95, 1
+            pos_hint: {'center_y': 0.5, 'center_x': 0.5}
+            hint_text:'Add your notes here e.g Tyres are close to the limit'
+        BoxLayout:
+            size_hint: 1, .33
+            padding: 20, 20, 20, 20
+            Button:
+                text: "Next"
+                bold: True
+                background_color: (0,154,154, .4)
+                background_normal: ''
+                on_press: root.appendnotes()
+                on_release: app.root.current = 'sigscreen'

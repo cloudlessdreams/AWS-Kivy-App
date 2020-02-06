@@ -1,0 +1,23 @@
+<Final>:
+    name: 'final'
+    BoxLayout:
+        padding: 20, 20, 20, 20
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: C('#30425A')
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        Label:
+            text: 'Vehicle Check completed! Thank you!'
+        BoxLayout:
+            size_hint: 1, .33
+            padding: 20, 20, 20, 20
+            Button:
+                text: "Exit"
+                bold: True
+                background_color: (0,154,154, .4)
+                background_normal: ''
+                on_press: app.stop()
+
